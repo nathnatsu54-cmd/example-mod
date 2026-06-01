@@ -1,21 +1,36 @@
-name: Build Mod
+name: Test the action
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - "**"
+      - '**'
+
+env:
+  test-mod-path: example-mod-test
+  test-geode-nightly: false
+  # Line below makes IDEs with github actions intelisense or whatever its called in editors shut up about an unknown env variable
+  geode-sdk-type: ''
 
 jobs:
-  build:
-    name: Build Windows
-    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
-    with:
-      bindings-ref: main
-      cli-ref: main
-      build-config: Release
-      # On force spécifiquement la plateforme Windows ici
-      target: windows
+  fetch-geode-version:
+    name: Get Geode Version
+    runs-on: ubuntu-latest
+    outputs:
+      geode_ver: ${{ steps.get_version.outputs.geode_version }}
+    steps:
+    - name: Get latest release tag
+      id: get_version
+      run: |
+        # Get latest Geode version
+        if [ ${{ env.test-geode-nightly }} == true ]; then
+          GEODE_VERSION=$(curl -s https://raw.githubusercontent.com/geode-sdk/geode/nightly/VERSION)
+        else
+          GEODE_VERSION=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/geode-sdk/geode/releases/latest | jq -r .tag_name)
+        fi
+
+        GEODE_VERSION=${GEODE_VERSION#v}
+        echo "geode_version=$GEODE_VERSION" >> $GITHUB_OUTPUT
 
   build:
     strategy:
