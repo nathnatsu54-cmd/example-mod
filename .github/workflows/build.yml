@@ -32,6 +32,23 @@ jobs:
         GEODE_VERSION=${GEODE_VERSION#v}
         echo "geode_version=$GEODE_VERSION" >> $GITHUB_OUTPUT
 
+        name: Build Mod
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # On ajoute cette ligne pour bien définir l'environnement
+    steps:
+      - uses: actions/checkout@v4 # C'EST CETTE LIGNE QUI MANQUAIT
+      
+    strategy:
+      # ... (laisse le reste de ton code en dessous comme il était)
+
   build:
     strategy:
       fail-fast: false
