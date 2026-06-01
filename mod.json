@@ -4,7 +4,8 @@
     "win": "2.2081"
   },
   "id": "nathatsu.my-testmod",
-  "name": "hiden_practice_percent",
+  "name": "hiden_practice_penrcent",
   "version": "1.0.0",
-  "developers": ["nathnatsu54-cmd"]
+  "developers": ["nathnatsu54-cmd"],
+  "description": "Mod qui cache le pourcentage en practice"
 }
