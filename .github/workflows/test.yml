@@ -11,8 +11,6 @@ env:
   test-geode-nightly: false
   # Line below makes IDEs with github actions intelisense or whatever its called in editors shut up about an unknown env variable
   geode-sdk-type: ''
-
-jobs:
 name: Build Mod
 
 on:
@@ -37,6 +35,14 @@ jobs:
         - name: Android64
           os: ubuntu-latest
           target: android64
+
+    runs-on: ${{ matrix.config.os }}
+    name: Build ${{ matrix.config.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
+        with:
+          target: ${{ matrix.config.target }}
 
     runs-on: ${{ matrix.config.os }}
     name: Build ${{ matrix.config.name }}
