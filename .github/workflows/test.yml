@@ -8,25 +8,8 @@ on:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-        - name: Windows
-          os: windows-latest
-        - name: macOS
-          os: macos-latest
-        - name: Android32
-          os: ubuntu-latest
-          target: android32
-        - name: Android64
-          os: ubuntu-latest
-          target: android64
-
-    runs-on: ${{ matrix.config.os }}
-    name: Build ${{ matrix.config.name }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
-        with:
-          target: ${{ matrix.config.target }}
+    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
+    with:
+      bindings-ref: main
+      cli-ref: main
+      build-config: Release
