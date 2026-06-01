@@ -14,8 +14,3 @@ jobs:
       bindings-ref: main
       cli-ref: main
       build-config: Release
-
-  package:
-    name: Package Mod
-    uses: geode-sdk/build-e2e/.github/workflows/package.yml@main
-    needs: build
