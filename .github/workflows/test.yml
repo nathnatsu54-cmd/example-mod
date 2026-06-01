@@ -7,30 +7,29 @@ on:
   pull_request:
 
 env:
-  MOD_PATH: .                    # Si ton mod est à la racine, sinon mets le nom du dossier
-  # GEODE_VERSION: "nightly"     # Décommente si tu veux la version nightly
+  MOD_PATH: .   # Change si ton mod n'est pas à la racine
 
 jobs:
   build:
     name: Build Windows
     runs-on: windows-latest
-    
+
     steps:
-      - name: Checkout your mod
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build the mod
-        uses: geode-sdk/build-geode-mod@v1
+        uses: geode-sdk/build-geode-mod@main
         with:
           path: ${{ env.MOD_PATH }}
           build-config: RelWithDebInfo
-          # sdk: nightly          # si tu veux la nightly
           export-pdb: true
           bundle-pdb: true
           export-symbols: true
 
-      - name: Upload .geode
+      - name: Upload .geode file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-${{ github.sha }}
+          name: ${{ github.event.repository.name }}
           path: "*.geode"
+          retention-days: 30
