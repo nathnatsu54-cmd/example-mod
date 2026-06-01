@@ -13,6 +13,38 @@ env:
   geode-sdk-type: ''
 
 jobs:
+name: Build Mod
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+        - name: macOS
+          os: macos-latest
+        - name: Android32
+          os: ubuntu-latest
+          target: android32
+        - name: Android64
+          os: ubuntu-latest
+          target: android64
+
+    runs-on: ${{ matrix.config.os }}
+    name: Build ${{ matrix.config.name }}
+    steps:
+      - uses: actions/checkout@v4 # C'est cette ligne qui corrige l'erreur de la capture
+      - uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
+        with:
+          target: ${{ matrix.config.target }}
   fetch-geode-version:
     name: Get Geode Version
     runs-on: ubuntu-latest
