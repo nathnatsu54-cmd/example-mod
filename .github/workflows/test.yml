@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: geode-sdk/build-e2e/.github/workflows/test.yml@main
+    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
     with:
       bindings-ref: main
       cli-ref: main
