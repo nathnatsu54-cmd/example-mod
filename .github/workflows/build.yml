@@ -1,0 +1,37 @@
+name: Build Mod
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+        - name: macOS
+          os: macos-latest
+        - name: Android32
+          os: ubuntu-latest
+          target: android32
+        - name: Android64
+          os: ubuntu-latest
+          target: android64
+
+    name: Build ${{ matrix.config.name }}
+    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
+    with:
+      bindings-ref: main
+      cli-ref: main
+      build-config: Release
+      target: ${{ matrix.config.target }}
+
+  package:
+    name: Package Mod
+    uses: geode-sdk/build-e2e/.github/workflows/package.yml@main
+    needs: build
