@@ -1,18 +1,36 @@
-name: Build Mod
+name: Build Geode Mod (Windows)
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "**"
+    branches: [ main, master ]
+  pull_request:
+
+env:
+  MOD_PATH: .
 
 jobs:
   build:
-    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
-    with:
-      bindings-ref: main
-      cli-ref: main
-      build-config: Release
-      target: windows
-      # Cette ligne demande explicitement au workflow de Geode de créer l'artifact
-      upload-artifact: true
+    name: Build Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          path: ${{ env.MOD_PATH }}
+          build-config: RelWithDebInfo
+          export-pdb: true
+          bundle-pdb: true
+          export-symbols: true
+
+      - name: Upload .geode
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hiden-practice-percent
+          path: "*.geode"
+          retention-days: 30
