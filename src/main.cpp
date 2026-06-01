@@ -7,14 +7,15 @@ class $modify(PlayLayer) {
     void updateProgressbar() {
         PlayLayer::updateProgressbar();
 
-        if (this->m_isPracticeMode) {
-            if (this->m_percentageLabel) {
-                this->m_percentageLabel->setVisible(false);
-            }
-        } else {
-            if (this->m_percentageLabel) {
-                this->m_percentageLabel->setVisible(true);
-            }
+        bool hidePercentage = this->m_isPracticeMode;
+
+        // Cache aussi si le niveau a été lancé depuis un StartPos
+        if (this->m_startPosObject) {
+            hidePercentage = true;
+        }
+
+        if (this->m_percentageLabel) {
+            this->m_percentageLabel->setVisible(!hidePercentage);
         }
     }
 };
