@@ -34,3 +34,15 @@ jobs:
           name: hiden-practice-percent
           path: "*.geode"
           retention-days: 30
+
+          - name: Upload .geode
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hiden-practice-percent
+          # On élargit la recherche pour inclure le dossier build
+          path: |
+            *.geode
+            build/*.geode
+            build/RelWithDebInfo/*.geode
+          retention-days: 30
