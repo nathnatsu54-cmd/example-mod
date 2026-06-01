@@ -8,21 +8,11 @@ on:
 
 jobs:
   build:
-    name: Build Windows
-    uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
+    uses: geode-sdk/build-e2e/.github/workflows/test.yml@main
     with:
       bindings-ref: main
       cli-ref: main
       build-config: Release
       target: windows
-
-  # Ajoute ce bloc pour forcer la création de l'artifact
-  package:
-    name: Package
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Mod-Build
-          path: build/*.geode
+      # Cette ligne demande explicitement au workflow de Geode de créer l'artifact
+      upload-artifact: true
