@@ -1,17 +1,10 @@
 {
-	"geode": "$GEODE_VERSION",
-	"gd": {
-		"win": "2.2081",
-		"android": "2.2081",
-		"mac": "2.2081",
-		"ios": "2.2081"
-	},
-	"id": "nathnatsu54-cmd.hide_practice_percent",
-	"name": "$MOD_NAME",
-	"version": "$MOD_VERSION",
-	"developer": "$MOD_DEVELOPER",
-	"description": "$MOD_DESCRIPTION",
-	"dependencies": {
-		"geode.node-ids": ">=v1.23.3"
-	}
+  "geode": "v5.7.1",
+  "gd": {
+    "win": "2.2081"
+  },
+  "id": "nathatsu.my-testmod",
+  "name": "hiden_practice_penrcent",
+  "version": "1.0.0",
+  "developers": ["nathnatsu54-cmd"]
 }
