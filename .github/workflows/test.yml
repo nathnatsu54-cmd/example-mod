@@ -8,8 +8,11 @@ on:
 
 jobs:
   build:
+    name: Build Windows
     uses: geode-sdk/build-e2e/.github/workflows/build.yml@main
     with:
       bindings-ref: main
       cli-ref: main
       build-config: Release
+      # On force spécifiquement la plateforme Windows ici
+      target: windows
