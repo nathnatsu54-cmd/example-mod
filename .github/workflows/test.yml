@@ -1,48 +1,27 @@
-name: Build Geode Mod (Windows)
+name: Build Mod
 
 on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
-  pull_request:
-
-env:
-  MOD_PATH: .
 
 jobs:
   build:
     name: Build Windows
     runs-on: windows-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          path: ${{ env.MOD_PATH }}
-          build-config: RelWithDebInfo
-          export-pdb: true
-          bundle-pdb: true
-          export-symbols: true
+          path: .
+          build-config: Release
 
       - name: Upload .geode
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: hiden-practice-percent
-          path: "*.geode"
-          retention-days: 30
-
-          - name: Upload .geode
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hiden-practice-percent
-          # On élargit la recherche pour inclure le dossier build
-          path: |
-            *.geode
-            build/*.geode
-            build/RelWithDebInfo/*.geode
-          retention-days: 30
+          path: build/*.geode
