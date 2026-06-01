@@ -1,35 +1,11 @@
-name: Build Geode Mod (Windows)
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [ main, master ]
-  pull_request:
-
-env:
-  MOD_PATH: .   # Change si ton mod n'est pas à la racine
-
-jobs:
-  build:
-    name: Build Windows
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build the mod
-        uses: geode-sdk/build-geode-mod@main
-        with:
-          path: ${{ env.MOD_PATH }}
-          build-config: RelWithDebInfo
-          export-pdb: true
-          bundle-pdb: true
-          export-symbols: true
-
-      - name: Upload .geode file
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.repository.name }}
-          path: "*.geode"
-          retention-days: 30
+{
+  "geode": "5.7.1",
+  "gd": {
+    "win": "2.2081"
+  },
+  "id": "nathatsu.my-testmod",
+  "name": "hiden_practice_penrcent",
+  "version": "1.0.0",
+  "developers": ["nathnatsu54-cmd"],
+  "description": "Mod qui cache le pourcentage en practice"
+}
